@@ -9,9 +9,6 @@ const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use(express.static('public'));
-app.use('/feedback', express.static('feedback'));
-
 app.get('/', (req, res) => {
   const filePath = path.join(__dirname, 'pages', 'feedback.html');
   res.sendFile(filePath);
@@ -37,10 +34,16 @@ app.post('/create', async (req, res) => {
       res.redirect('/exists');
     } else {
       await fs.copyFile(tempFilePath, finalFilePath);
-      fs.unlink(tempFilePath)
+      await fs.unlink(tempFilePath);
       res.redirect('/');
     }
   });
 });
 
-app.listen(80);
+// Serve static files after your routes
+app.use(express.static('public'));
+app.use('/feedback', express.static('feedback'));
+
+app.listen(80, () => {
+  console.log('Server is listening on port 80');
+});
