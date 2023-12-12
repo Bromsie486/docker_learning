@@ -44,6 +44,6 @@ app.post('/create', async (req, res) => {
 app.use(express.static('public'));
 app.use('/feedback', express.static('feedback'));
 
-app.listen(80, () => {
+app.listen(process.env.PORT, () => {
   console.log('Server is listening on port 80');
 });
