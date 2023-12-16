@@ -56,7 +56,6 @@ app.post('/goals', async (req, res) => {
   const goal = new Goal({
     text: goalText,
   });
-
   try {
     await goal.save();
     res
@@ -94,7 +93,7 @@ mongoose.connect(
       console.error('FAILED TO CONNECT TO MONGODB');
       console.error(err);
     } else {
-      console.log('CONNECTED TO MONGODB');
+      console.log('CONNECTED TO MONGODB!!');
       app.listen(80);
     }
   }
