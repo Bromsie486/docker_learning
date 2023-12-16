@@ -1,0 +1,20 @@
+version: "3.8"
+services:
+  mongodb:
+    image: "mongo"
+    volumes:
+      - db_data:/data/db
+  backend:
+    image: "node-backend"
+    volumes:
+      - /home/skondab/github_bromsie/docker_learning/self_made_project/backend:/app
+      - logs:/app/logs
+      - /app/node_modules
+  frontend:
+    image: "node-frontend"
+    volumes:
+      - /home/skondab/github_bromsie/docker_learning/self_made_project/frontend/src:/app/src
+
+volumes:
+  db_data:
+  logs:
