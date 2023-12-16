@@ -5,15 +5,23 @@ services:
     volumes:
       - db_data:/data/db
   backend:
-    image: "node-backend"
+    build: ./backend
+    ports:
+      - "80:80"
     volumes:
-      - /home/skondab/github_bromsie/docker_learning/self_made_project/backend:/app
+      - ./backend:/app
       - logs:/app/logs
       - /app/node_modules
+    depends_on:
+      - mongodb
   frontend:
-    image: "node-frontend"
+    build: ./frontend
+    ports:
+      - "3000:3000"
     volumes:
       - /home/skondab/github_bromsie/docker_learning/self_made_project/frontend/src:/app/src
+    depends_on:
+      - backend
 
 volumes:
   db_data:
